@@ -1,0 +1,13 @@
+{
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#fafafa",
+    "titleBar.activeForeground": "#000",
+    "activityBar.background": "#aeab99",
+     "activityBar.foreground": "#000",
+      "activityBar.inactiveForeground": "#000",
+       "statusBar.background": "#fffffd",
+    "statusBar.foreground": "#000",
+
+  },
+}

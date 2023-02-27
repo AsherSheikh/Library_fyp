@@ -14,6 +14,7 @@ import {
   Ionicons,
   Feather,
   MaterialIcons,
+  Entypo,
   FontAwesome5,
 } from "@expo/vector-icons";
 import styles from "../../screen/styles";
@@ -21,76 +22,25 @@ import { LinearGradient } from "expo-linear-gradient";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CommonActions, NavigationAction } from "@react-navigation/native";
 
-// const MenuItems = [
-//   {
-//     id: 1,
-//     name: "My Properties",
-//     Image: require("../../assets/images/my-properties.png"),
-//     navigateTo: "MyProperties",
-//   },
-//   {
-//     id: 2,
-//     name: "My Stuff",
-//     Image: require("../../assets/images/my-stuff.png"),
-//     navigateTo: "MyStuff",
-//   },
-//   {
-//     id: 3,
-//     name: "My Documents",
-//     Image: require("../../assets/images/my-documents.png"),
-//     navigateTo: "MyDocuments",
-//   },
-//   {
-//     id: 4,
-//     name: "Schedule Task",
-//     Image: require("../../assets/images/schedule-task.png"),
-//     // navigateTo: "ScheduleEdit",
-//   },
-//   {
-//     id: 5,
-//     name: "Finance",
-//     Image: require("../../assets/images/finance.png"),
-//     // navigateTo: 'TermsCondition'
-//   },
-// ];
-
 const MenuItems = [
   {
     id: 1,
-    name: "My Folders",
+    name: "Categories",
     Image: require("../../assets/images/my-properties.png"),
     navigateTo: "DocumentListing",
   },
   {
-    id: 1,
-    name: "Your Text",
+    id: 2,
+    name: "Departments",
     Image: require("../../assets/images/my-properties.png"),
-    navigateTo: "",
-  },
-  {
-    id: 1,
-    name: "Your Text",
-    Image: require("../../assets/images/my-properties.png"),
-    navigateTo: "",
-  },
-  {
-    id: 1,
-    name: "Your Text",
-    Image: require("../../assets/images/my-properties.png"),
-    navigateTo: "",
-  },
-  {
-    id: 1,
-    name: "Your Text",
-    Image: require("../../assets/images/my-properties.png"),
-    navigateTo: "",
+    navigateTo: "Department",
   },
 
   {
-    id: 6,
-    name: "Your Text",
-    Image: require("../../assets/images/finance.png"),
-    // navigateTo: "MyHandymen",
+    id: 3,
+    name: "Search",
+    Image: require("../../assets/images/my-properties.png"),
+    navigateTo: "Search",
   },
 ];
 
@@ -143,6 +93,26 @@ export default function SideBar(props) {
             <AntDesign name="close" size={30} color="black" />
           </TouchableOpacity>
         </View>
+        {/* <Text>Your Digital </Text> */}
+        <View
+          style={{
+            padding: 40,
+            borderRadius: 200 / 2,
+            borderWidth: 2,
+            borderColor: currentTheme.themeBackground,
+            alignSelf: "center",
+            marginBottom: 20,
+          }}
+        >
+          <Image
+            source={require("../../assets/images/library-drawer.png")}
+            resizeMode="contain"
+            style={{
+              width: 100,
+              height: 100,
+            }}
+          />
+        </View>
         <View style={[styles().flex]}>
           <FlatList
             data={MenuItems}
@@ -162,7 +132,7 @@ export default function SideBar(props) {
                   ]}
                 >
                   <View style={[styles().mr20, styles().wh20px]}>
-                    <Image
+                    {/* <Image
                       source={item.Image}
                       style={[
                         styles().wh100,
@@ -174,6 +144,11 @@ export default function SideBar(props) {
                         },
                       ]}
                       resizeMode={"contain"}
+                    /> */}
+                    <Entypo
+                      name="list"
+                      size={20}
+                      color={currentTheme.themeBackground}
                     />
                   </View>
                   <View>

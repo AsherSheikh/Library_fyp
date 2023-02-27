@@ -88,13 +88,13 @@ export default function Landing(props) {
 
   const landingText = [
     {
-      image: require("../../assets/images/landing1.png"),
+      image: require("../../assets/images/books.png"),
       heading: "Your Heading!",
       text1:
         "Library is here to make your life easier. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. ",
     },
     {
-      image: require("../../assets/images/landing2.png"),
+      image: require("../../assets/images/books.png"),
       heading: "Your Heading!",
       text1:
         "Library gives you central a location to store all of your important documents. Think:",
@@ -102,7 +102,7 @@ export default function Landing(props) {
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. ",
     },
     {
-      image: require("../../assets/images/landing3.png"),
+      image: require("../../assets/images/books.png"),
       heading: "Your Heading!",
       text1:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. ",
@@ -135,7 +135,7 @@ export default function Landing(props) {
             <Image
               source={landingText[page].image}
               resizeMode="contain"
-              style={styles().w100}
+              style={{ height: 200, width: "70%", alignSelf: "center" }}
             />
           </View>
           <View style={[styles().flex, styles().mt25]}>

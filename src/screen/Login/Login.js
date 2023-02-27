@@ -86,12 +86,21 @@ export default function Login(props) {
             <Text
               style={[
                 styles().fs20,
-                styles().fontRegular,
+                styles().fontBold,
+                styles().textUpper,
                 { color: currentTheme.black },
               ]}
             >
-              Welcome To Library
+              Welcome To Smart Library
             </Text>
+          </View>
+
+          <View style={[styles().flex, styles().justifyEnd, styles().mb35]}>
+            <Image
+              source={require("../../assets/images/books.png")}
+              resizeMode="contain"
+              style={{ height: 150, width: "70%", alignSelf: "center" }}
+            />
           </View>
 
           <View style={styles().mb20}>

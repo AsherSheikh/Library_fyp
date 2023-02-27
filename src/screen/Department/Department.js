@@ -22,14 +22,14 @@ export default function DocumentListing(props) {
   const [popFolder, setPopFolder] = useState(false);
   const [selectedFolderIndex, setSelectedFolderIndex] = useState("");
   let folders = [
-    { name: "Data Structure" },
-    { name: "Data Base" },
-    { name: "OOP" },
-    { name: "Design Pattern" },
-    { name: "Numeric Computing" },
-    { name: "Networking" },
-    { name: "Game Development" },
-    { name: "Artificial Intelligence" },
+    { name: "Departments of Administration." },
+    { name: "Departments of Arts and Humanities." },
+    { name: "Departments of Business, Economics and Administrative Sciences." },
+    { name: "Departments of Commerce." },
+    { name: "Departments of Computing & Information Technology." },
+    { name: "Departments of Law." },
+    { name: "Departments of Computer Science." },
+    { name: "Departments of  Artificial Intelligence" },
   ];
 
   return (
@@ -37,7 +37,7 @@ export default function DocumentListing(props) {
       navigation={props.navigation}
       LeftIcon={true}
       withoutScroll={true}
-      pagetitle={"Categories"}
+      pagetitle={"Our Departments"}
       style={[styles().ph0]}
     >
       <View style={[styles().flex, { marginHorizontal: width * 0.04 }]}>
@@ -55,7 +55,7 @@ export default function DocumentListing(props) {
                 onPress={() =>
                   props.navigation.navigate("DocumentView", {
                     type: item.name,
-                    typeImage: require("../../assets/images/folder.png"),
+                    typeImage: require("../../assets/images/shopping-mall.png"),
                   })
                 }
                 style={[
@@ -88,7 +88,7 @@ export default function DocumentListing(props) {
                     ]}
                   >
                     <Image
-                      source={require("../../assets/images/folder.png")}
+                      source={require("../../assets/images/shopping-mall.png")}
                       resizeMode="contain"
                       style={[styles().wh80px]}
                     />

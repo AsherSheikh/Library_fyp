@@ -31,9 +31,7 @@ import ThemeButton from "../../Component/ThemeButton/ThemeButton";
 const { width, height } = Dimensions.get("window");
 
 export default function DocumentListing(props) {
-  const docs = props?.route?.params?.docs;
-  const property = props?.route?.params?.property;
-  //   console.log("docs========>", docs);
+  const { book, type, typeImage } = props?.route?.params;
   const themeContext = useContext(ThemeContext);
   const currentTheme = theme[themeContext.ThemeValue];
 
@@ -42,7 +40,7 @@ export default function DocumentListing(props) {
       navigation={props.navigation}
       LeftIcon={true}
       withoutScroll={true}
-      pagetitle={"Documents"}
+      pagetitle={book?.title ? book?.title : type}
       style={[styles().ph0]}
     >
       <View style={[styles().flex, { marginHorizontal: width * 0.04 }]}>
@@ -158,28 +156,13 @@ export default function DocumentListing(props) {
                     fontSize: 14,
                   }}
                 >
-                  No Documents
+                  No Data
                 </Text>
               </View>
             );
           }}
         />
       </View>
-      {/* <View
-        style={[
-          styles().left20,
-          styles().right20,
-          styles().posAbs,
-          styles().bottom20,
-        ]}
-      >
-        <ThemeButton
-          onPress={() => {
-            props.navigation.navigate("DocumentEdit");
-          }}
-          Title={"Add Document"}
-        />
-      </View> */}
     </Layout>
   );
 }

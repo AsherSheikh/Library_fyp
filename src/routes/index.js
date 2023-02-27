@@ -28,6 +28,8 @@ import ChangePassword from "../screen/ChangePassword/ChangePassword";
 import Faq from "../screen/Faq/Faq";
 import MyNotifications from "../screen/Notifications/Notifications";
 import DocumentView from "../screen/DocumentView/DocumentView";
+import Department from "../screen/Department/Department";
+import Search from "../screen/Search/Search";
 
 // Auth Stack
 import LandingScreen from "../screen/Landing/Landing";
@@ -95,6 +97,8 @@ function HomeNavigator() {
       <HomeStack.Screen name="EditProfile" component={EditProfile} />
       <HomeStack.Screen name="MyNotifications" component={MyNotifications} />
       <HomeStack.Screen name="DocumentView" component={DocumentView} />
+      <HomeStack.Screen name="Department" component={Department} />
+      <HomeStack.Screen name="Search" component={Search} />
     </HomeStack.Navigator>
   );
 }

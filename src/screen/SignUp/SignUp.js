@@ -6,6 +6,7 @@ import {
   ImageBackground,
   ScrollView,
   KeyboardAvoidingView,
+  Image,
 } from "react-native";
 import TextField from "../../Component/FloatTextField/FloatTextField";
 import styles from "../styles";
@@ -113,8 +114,22 @@ export default function Signup(props) {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={[styles().mt70, styles().mb30]}>
-              {/* <AuthHeader head={"Sign Up"} /> */}
+            <Text
+              style={[
+                styles().fs20,
+                styles().fontBold,
+                styles().textUpper,
+                { color: currentTheme.black, marginTop: 30 },
+              ]}
+            >
+              Signup To Smart Library
+            </Text>
+            <View style={[styles().flex, styles().justifyEnd, styles().mv25]}>
+              <Image
+                source={require("../../assets/images/books.png")}
+                resizeMode="contain"
+                style={{ height: 150, width: "70%", alignSelf: "center" }}
+              />
             </View>
 
             <View style={[styles().mb20]}>

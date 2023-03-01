@@ -13,7 +13,7 @@ import styles from "../styles";
 import ThemeContext from "../../context/ThemeContext/ThemeContext";
 import { theme } from "../../context/ThemeContext/ThemeColor";
 import ThemeButton from "../../Component/ThemeButton/ThemeButton";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, AntDesign } from "@expo/vector-icons";
 // import AuthHeader from "../../Component/AuthHeader/AuthHeader";
 import { useIsFocused } from "@react-navigation/native";
 import { validateFunc } from "../../constraints/constraints";
@@ -40,7 +40,7 @@ export default function Signup(props) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [loading, setLoading] = useState(false);
-
+  const [checkbox, setCheckbox] = useState(true);
   const isFocused = useIsFocused();
 
   function validation() {
@@ -97,7 +97,7 @@ export default function Signup(props) {
     if (validation()) {
       setLoading(true);
       FlashMessage({ msg: "Signup Successfully!", type: "success" });
-      props.navigation.navigate("SignIn");
+      props.navigation.navigate("Role");
     } else {
       setLoading(false);
     }
@@ -252,7 +252,82 @@ export default function Signup(props) {
                 }
               />
             </View>
+            <View style={[styles().mb20]}>
+              <Text
+                style={[
+                  styles().fs12,
+                  styles().fw600,
+                  styles().fontBlack,
+                  styles().mb5,
+                  { color: currentTheme.c080A24 },
+                ]}
+              >
+                Role
+              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <TouchableOpacity
+                    onPress={() => setCheckbox(!checkbox)}
+                    style={{
+                      height: 40,
+                      width: 40,
+                      borderRadius: 5,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <AntDesign
+                      color={currentTheme.themeBackground}
+                      size={25}
+                      name={checkbox ? "checksquare" : "checksquareo"}
+                    />
+                  </TouchableOpacity>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "500",
+                      color: currentTheme.black,
+                    }}
+                  >
+                    STUDENT
+                  </Text>
+                </View>
 
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginLeft: 20,
+                  }}
+                >
+                  <TouchableOpacity
+                    onPress={() => setCheckbox(!checkbox)}
+                    style={{
+                      height: 40,
+                      width: 40,
+                      borderRadius: 5,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <AntDesign
+                      color={currentTheme.themeBackground}
+                      size={25}
+                      name={!checkbox ? "checksquare" : "checksquareo"}
+                    />
+                  </TouchableOpacity>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "500",
+                      color: currentTheme.black,
+                    }}
+                  >
+                    SHOPKEEPER
+                  </Text>
+                </View>
+              </View>
+            </View>
             <View style={[styles().mb30, styles().mt20]}>
               {!loading ? (
                 <ThemeButton

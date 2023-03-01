@@ -21,7 +21,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width, height } = Dimensions.get("window");
 
-export default function Home(props) {
+export default function ShopHome(props) {
   const HomeTopList = [
     {
       Image: require("../../assets/images/home-top-img1.png"),
@@ -145,7 +145,7 @@ export default function Home(props) {
       NotiIcon={true}
       withoutScroll={false}
       ProfileImg={true}
-      pagetitle={`Welcome To Library`}
+      pagetitle={`Welcome To Your Shop`}
       style={styles().ph0}
     >
       <View

@@ -53,7 +53,7 @@ export default function DocumentListing(props) {
                 activeOpacity={0.5}
                 key={index}
                 onPress={() =>
-                  props.navigation.navigate("DocumentView", {
+                  props.navigation.navigate("Courses", {
                     type: item.name,
                     typeImage: require("../../assets/images/folder.png"),
                   })

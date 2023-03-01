@@ -30,6 +30,11 @@ import MyNotifications from "../screen/Notifications/Notifications";
 import DocumentView from "../screen/DocumentView/DocumentView";
 import Department from "../screen/Department/Department";
 import Search from "../screen/Search/Search";
+import Cart from "../screen/Cart/Cart";
+import Courses from "../screen/Courses/Courses";
+import Checkout from "../screen/Checkout/Checkout";
+import Role from "../screen/Role/Role";
+import ShopHome from "../screen/ShopHome/ShopHome";
 
 // Auth Stack
 import LandingScreen from "../screen/Landing/Landing";
@@ -52,6 +57,7 @@ function authenticationNavigator() {
   return (
     <AuthenticationStack.Navigator headerMode="none">
       {/* <AuthenticationStack.Screen name="Landing" component={LandingScreen} /> */}
+      <HomeStack.Screen name="Role" component={Role} />
       <AuthenticationStack.Screen name="Login" component={Login} />
 
       <AuthenticationStack.Screen
@@ -88,7 +94,6 @@ function HomeNavigator() {
   return (
     <HomeStack.Navigator headerMode="none">
       <HomeStack.Screen name="Home" component={Home} />
-
       <HomeStack.Screen name="DocumentListing" component={DocumentListing} />
       <HomeStack.Screen name="Profile" component={Profile} />
       <HomeStack.Screen name="PersonalDetails" component={PersonalDetails} />
@@ -99,6 +104,29 @@ function HomeNavigator() {
       <HomeStack.Screen name="DocumentView" component={DocumentView} />
       <HomeStack.Screen name="Department" component={Department} />
       <HomeStack.Screen name="Search" component={Search} />
+      <HomeStack.Screen name="Courses" component={Courses} />
+      <HomeStack.Screen name="Cart" component={Cart} />
+      <HomeStack.Screen name="Checkout" component={Checkout} />
+    </HomeStack.Navigator>
+  );
+}
+function ShopNavigator() {
+  return (
+    <HomeStack.Navigator headerMode="none">
+      <HomeStack.Screen name="ShopHome" component={ShopHome} />
+      <HomeStack.Screen name="DocumentListing" component={DocumentListing} />
+      <HomeStack.Screen name="Profile" component={Profile} />
+      <HomeStack.Screen name="PersonalDetails" component={PersonalDetails} />
+      <HomeStack.Screen name="ChangePassword" component={ChangePassword} />
+      <HomeStack.Screen name="Faq" component={Faq} />
+      <HomeStack.Screen name="EditProfile" component={EditProfile} />
+      <HomeStack.Screen name="MyNotifications" component={MyNotifications} />
+      <HomeStack.Screen name="DocumentView" component={DocumentView} />
+      <HomeStack.Screen name="Department" component={Department} />
+      <HomeStack.Screen name="Search" component={Search} />
+      <HomeStack.Screen name="Courses" component={Courses} />
+      <HomeStack.Screen name="Cart" component={Cart} />
+      <HomeStack.Screen name="Checkout" component={Checkout} />
     </HomeStack.Navigator>
   );
 }
@@ -143,6 +171,46 @@ function Drawer() {
   );
 }
 
+function Drawer2() {
+  const [progress, setProgress] = React.useState(new Animated.Value(0));
+  const scale = Animated.interpolateNode(progress, {
+    inputRange: [0, 1],
+    outputRange: [1, 0.8],
+  });
+  const borderRadius = Animated.interpolateNode(progress, {
+    inputRange: [0, 1],
+    outputRange: [0, 16],
+  });
+
+  const animatedStyle = { borderRadius, transform: [{ scale }] };
+
+  return (
+    <UserProvider>
+      <View style={{ flex: 1 }}>
+        <SideDrawer.Navigator
+          drawerType="front"
+          drawerStyle={{
+            flex: 1,
+            backgroundColor: "transparent",
+            borderBottomRIghtRadius: 30,
+            borderTopRightRadius: 30,
+            overflow: "hidden",
+            // width: "80%",
+          }}
+          drawerContent={(props) => {
+            setProgress(props.progress);
+            return <SideBar {...props} />;
+          }}
+        >
+          <SideDrawer.Screen name="ShopHome">
+            {(props) => <ShopNavigator {...props} style={animatedStyle} />}
+          </SideDrawer.Screen>
+        </SideDrawer.Navigator>
+      </View>
+    </UserProvider>
+  );
+}
+
 const closeConfig = {
   animation: "timing",
   config: {
@@ -168,6 +236,13 @@ function noDrawer() {
   return (
     <NavigationStack.Navigator headerMode="none">
       <NavigationStack.Screen name="Drawer" component={Drawer} />
+    </NavigationStack.Navigator>
+  );
+}
+function noDrawer2() {
+  return (
+    <NavigationStack.Navigator headerMode="none">
+      <NavigationStack.Screen name="Drawer2" component={Drawer2} />
     </NavigationStack.Navigator>
   );
 }
@@ -197,6 +272,7 @@ function AppContainer(props) {
           <MainStack.Screen name="Auth" component={authenticationNavigator} />
           <MainStack.Screen name="Landing" component={LandingNavigator} />
           <MainStack.Screen name="noDrawer" component={noDrawer} />
+          <MainStack.Screen name="noDrawer2" component={noDrawer2} />
         </MainStack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

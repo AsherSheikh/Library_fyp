@@ -31,7 +31,8 @@ export default function Login(props) {
   const [Password, SetPassword] = useState("");
   const [passError, setPasswordError] = useState(false);
   const [Loading, setLoading] = useState(false);
-
+  const [currentRole, setCurrentRole] = useState("");
+  let role = props?.route?.params;
   const [ConfirmiconEye, setConfirmIconEye] = useState("eye-slash");
   function onChangeIconConfirm() {
     if (ConfirmiconEye === "eye") {
@@ -62,7 +63,9 @@ export default function Login(props) {
         props.navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{ name: "noDrawer" }],
+            routes: [
+              { name: currentRole === "student" ? "noDrawer" : "noDrawer2" },
+            ],
           })
         );
         setLoading(false);
@@ -74,6 +77,20 @@ export default function Login(props) {
       setLoading(false);
     }
   }
+
+  async function Role() {
+    if (role?.isStudent) {
+      await AsyncStorage.setItem("role", "student");
+      setCurrentRole("student");
+    } else {
+      await AsyncStorage.setItem("role", "shopkeeper");
+      setCurrentRole("shopkeeper");
+    }
+  }
+
+  useEffect(() => {
+    Role();
+  }, [role]);
 
   return (
     <AuthLayout withoutScroll={true} navigation={props.navigation}>
@@ -91,7 +108,17 @@ export default function Login(props) {
                 { color: currentTheme.black },
               ]}
             >
-              Welcome To Smart Library
+              {`Welcome To Smart Library`}
+            </Text>
+            <Text
+              style={[
+                styles().fs20,
+                styles().fontBold,
+                styles().textUpper,
+                { color: currentTheme.themeBackground },
+              ]}
+            >
+              {currentRole !== "shopkeeper" ? `Student` : "ShopKeeper"}
             </Text>
           </View>
 

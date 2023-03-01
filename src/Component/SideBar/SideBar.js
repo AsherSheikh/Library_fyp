@@ -42,6 +42,12 @@ const MenuItems = [
     Image: require("../../assets/images/my-properties.png"),
     navigateTo: "Search",
   },
+  {
+    id: 3,
+    name: "My Cart",
+    Image: require("../../assets/images/my-properties.png"),
+    navigateTo: "Cart",
+  },
 ];
 
 export default function SideBar(props) {

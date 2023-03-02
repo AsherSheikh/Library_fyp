@@ -21,7 +21,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width, height } = Dimensions.get("window");
 
-export default function ShopHome(props) {
+export default function Home(props) {
   const HomeTopList = [
     {
       Image: require("../../assets/images/home-top-img1.png"),
@@ -46,10 +46,70 @@ export default function ShopHome(props) {
     },
   ];
 
-  let tabs = [
-    { title: "No. of Courses :", count: 10 },
-    { title: "No. of Books :", count: 43 },
-    // { title: "", count: 10 },
+  let top = [
+    {
+      count: 10,
+      Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+      image: require("../../assets/images/cover12.jpg"),
+      title: "Artificial Intelligence For Dummies (2nd Edition)",
+    },
+    {
+      count: 10,
+      Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+      title: "Being Human in the Age of Artificial Intelligence",
+      image: require("../../assets/images/cover123.jpg"),
+    },
+    {
+      count: 10,
+      Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+      image: require("../../assets/images/cover21.jpg"),
+      title: "Computer Networking: A Top-Down Approach",
+    },
+    {
+      count: 10,
+      Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+      title: "CompTIA Network+ Certification All-in-One Exam Guide",
+      image: require("../../assets/images/cover324.png"),
+    },
+    {
+      count: 10,
+      Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+      image: require("../../assets/images/cover421.jpg"),
+      title: "CompTIA Network+ Certification All-in-One Exam Guide",
+    },
+  ];
+
+  let Sale = [
+    {
+      count: 10,
+      Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+      image: require("../../assets/images/cover21.jpg"),
+      title: "Computer Networking: A Top-Down Approach",
+    },
+    {
+      count: 10,
+      Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+      title: "CompTIA Network+ Certification All-in-One Exam Guide",
+      image: require("../../assets/images/cover324.png"),
+    },
+    {
+      count: 10,
+      Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+      image: require("../../assets/images/cover421.jpg"),
+      title: "CompTIA Network+ Certification All-in-One Exam Guide",
+    },
+    {
+      count: 10,
+      Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+      image: require("../../assets/images/cover12.jpg"),
+      title: "Artificial Intelligence For Dummies (2nd Edition)",
+    },
+    {
+      count: 10,
+      Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+      title: "Being Human in the Age of Artificial Intelligence",
+      image: require("../../assets/images/cover123.jpg"),
+    },
   ];
 
   let arivals = [
@@ -63,12 +123,14 @@ export default function ShopHome(props) {
           Author: "Tom Taulli",
           available: true,
           count: 18,
+          image: require("../../assets/images/artificial-intelligence.png"),
           total: 25,
         },
         {
           title:
             "Fundamentals of Machine Learning for Predictive Data Analytics – Algorithms",
           Shelf: "Shelf no: 15",
+          image: require("../../assets/images/artificial-intelligence.png"),
           Author: "Denis Rothman, Matthew Lamons, Rahul Kumar",
           available: false,
           count: 4,
@@ -77,6 +139,7 @@ export default function ShopHome(props) {
         {
           title: "Being Human in the Age of Artificial Intelligence",
           Shelf: "Shelf no: 15",
+          image: require("../../assets/images/artificial-intelligence.png"),
           Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
           available: true,
           count: 14,
@@ -93,6 +156,7 @@ export default function ShopHome(props) {
           Shelf: "Shelf no: 15",
           Author: "Mike Meyers",
           available: true,
+          image: require("../../assets/images/networking.png"),
           count: 13,
           total: 26,
         },
@@ -102,11 +166,13 @@ export default function ShopHome(props) {
           Author: "Jason Edelman",
           available: false,
           count: 11,
+          image: require("../../assets/images/networking.png"),
           total: 14,
         },
         {
           title: "Computer Networking: A Top-Down Approach",
           Shelf: "Shelf no: 15",
+          image: require("../../assets/images/networking.png"),
           Author: "James Kurose",
           available: true,
           count: 10,
@@ -117,6 +183,7 @@ export default function ShopHome(props) {
           Shelf: "Shelf no: 15",
           Author: "Tanenbaum",
           available: true,
+          image: require("../../assets/images/networking.png"),
           count: 4,
           total: 6,
         },
@@ -124,28 +191,26 @@ export default function ShopHome(props) {
     },
   ];
 
-  let departments = [
-    { name: "Departments of Administration." },
-    { name: "Departments of Arts and Humanities." },
-    { name: "Departments of Business, Economics and Administrative Sciences." },
-    { name: "Departments of Commerce." },
-    // { name: "Departments of Computing & Information Technology." },
-    // { name: "Departments of Law." },
-    // { name: "Departments of Computer Science." },
-    // { name: "Departments of  Artificial Intelligence" },
-  ];
-
   const themeContext = useContext(ThemeContext);
   const currentTheme = theme[themeContext.ThemeValue];
+  const [currentRole, setCurrentRole] = useState("");
 
+  async function Role() {
+    let role = await AsyncStorage.getItem("role");
+    setCurrentRole(role);
+  }
+
+  useEffect(() => {
+    Role();
+  }, []);
   return (
     <Layout
       navigation={props.navigation}
       property={"Library"}
-      NotiIcon={true}
+      NotiIcon={false}
       withoutScroll={false}
-      ProfileImg={true}
-      pagetitle={`Welcome To Your Shop`}
+      ProfileImg={false}
+      pagetitle={`Online Books Store`}
       style={styles().ph0}
     >
       <View
@@ -156,43 +221,77 @@ export default function ShopHome(props) {
           },
         ]}
       >
+        <Text
+          style={{
+            marginTop: 15,
+            fontWeight: "bold",
+            color: "black",
+          }}
+        >
+          Top Rated Books:
+        </Text>
         <View style={{ alignItems: "center", marginTop: 20 }}>
           <FlatList
-            numColumns={2}
-            data={tabs}
+            horizontal
+            data={top}
+            showsHorizontalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => {
               return (
                 <TouchableOpacity
+                  onPress={() =>
+                    props.navigation.navigate("DocumentView", {
+                      type: item.title,
+                      typeImage: item.image,
+                      item: item,
+                    })
+                  }
                   activeOpacity={0.5}
                   style={{
-                    paddingHorizontal: 10,
-                    width: "45%",
-                    height: 80,
-                    borderRadius: 10,
-                    backgroundColor: currentTheme.themeBackground,
+                    width: width * 0.35,
                     alignItems: "center",
-                    justifyContent: "center",
-                    marginLeft: 10,
+                    marginLeft: 5,
                   }}
                 >
-                  <Text
+                  <View
                     style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                      color: currentTheme.white,
+                      padding: 10,
+                      borderRadius: 3,
+                      backgroundColor: currentTheme.cEFEFEF,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <View
+                      style={{
+                        height: 100,
+                        width: 100,
+                        borderRadius: 5,
+                        overflow: "hidden",
+                      }}
+                    >
+                      <Image
+                        source={item.image}
+                        style={{
+                          height: "100%",
+                          width: "100%",
+                          borderRadius: 5,
+                        }}
+                        resizeMode={"contain"}
+                      />
+                    </View>
+                  </View>
+                  <Text
+                    numberOfLines={2}
+                    style={{
+                      fontSize: 12,
+                      textAlign: "center",
+                      color: "black",
+                      width: "85%",
+                      marginTop: 5,
                     }}
                   >
                     {item.title}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "600",
-                      color: currentTheme.white,
-                    }}
-                  >
-                    {item.count}
                   </Text>
                 </TouchableOpacity>
               );
@@ -201,134 +300,159 @@ export default function ShopHome(props) {
         </View>
         <Text
           style={{
-            marginBottom: 10,
             marginTop: 15,
             fontWeight: "bold",
             color: "black",
           }}
         >
-          Departments
+          Sale:
         </Text>
-
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <ScrollView
-            contentContainerStyle={{ flexGrow: 1 }}
+        <View style={{ alignItems: "center", marginTop: 20 }}>
+          <FlatList
             horizontal
+            data={Sale}
             showsHorizontalScrollIndicator={false}
-          >
-            {departments.map((item, index) => {
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item, index }) => {
               return (
                 <TouchableOpacity
                   onPress={() =>
-                    props.navigation.navigate("Courses", {
-                      type: item.name,
-                      typeImage: require("../../assets/images/shopping-mall.png"),
+                    props.navigation.navigate("DocumentView", {
+                      type: item.title,
+                      typeImage: item.image,
+                      item: item,
                     })
                   }
                   activeOpacity={0.5}
-                  key={index}
-                  style={[
-                    {
-                      padding: 5,
-                      width: 150,
-                      borderRadius: 5,
-                      marginLeft: index === 0 ? 5 : 10,
-                    },
-                  ]}
+                  style={{
+                    width: width * 0.35,
+                    alignItems: "center",
+                    marginLeft: 5,
+                  }}
                 >
                   <View
-                    style={[
-                      styles().w100,
-                      styles().boxpeshadow,
-                      styles().bgWhite,
-                      // styles().ph10,
-                      styles().mb10,
-                      styles().h130px,
-                      styles().br5,
-                    ]}
+                    style={{
+                      padding: 10,
+                      borderRadius: 3,
+                      backgroundColor: currentTheme.cEFEFEF,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
                   >
                     <View
-                      style={[
-                        styles().wh100,
-                        styles().overflowH,
-                        styles().alignCenter,
-                        styles().justifyCenter,
-                        {
-                          backgroundColor: currentTheme.bodyBg,
-                        },
-                      ]}
+                      style={{
+                        height: 100,
+                        width: 100,
+                        borderRadius: 5,
+                        overflow: "hidden",
+                      }}
                     >
                       <Image
-                        source={require("../../assets/images/shopping-mall.png")}
-                        resizeMode="contain"
-                        style={[styles().wh65px]}
+                        source={item.image}
+                        style={{
+                          height: "100%",
+                          width: "100%",
+                          borderRadius: 5,
+                        }}
+                        resizeMode={"contain"}
                       />
                     </View>
                   </View>
                   <Text
                     numberOfLines={2}
-                    style={[
-                      styles().fs12,
-                      styles().fontBold,
-                      {
-                        color: currentTheme.black,
-                        marginLeft: 5,
-                      },
-                    ]}
+                    style={{
+                      fontSize: 12,
+                      textAlign: "center",
+                      color: "black",
+                      width: "85%",
+                      marginTop: 5,
+                    }}
                   >
-                    {item?.name?.toUpperCase()}
+                    {item.title}
                   </Text>
                 </TouchableOpacity>
               );
-            })}
-            <TouchableOpacity
-              onPress={() => props.navigation.navigate("Department")}
-              activeOpacity={0.5}
-              style={[
-                {
-                  padding: 5,
-                  width: 150,
-                  borderRadius: 5,
-                  marginLeft: 10,
-                },
-              ]}
-            >
-              <View
-                style={[
-                  styles().w100,
-                  styles().boxpeshadow,
-                  styles().bgWhite,
-                  // styles().ph10,
-                  styles().mb10,
-                  styles().h130px,
-                  styles().br5,
-                  styles().alignCenter,
-                  styles().justifyCenter,
-                ]}
-              >
-                <Text
-                  numberOfLines={2}
-                  style={[
-                    styles().fs12,
-                    styles().fontBold,
-                    {
-                      color: currentTheme.black,
-                      marginLeft: 5,
-                    },
-                  ]}
-                >
-                  {"View All"}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </ScrollView>
+            }}
+          />
         </View>
-
+        <Text
+          style={{
+            marginTop: 15,
+            fontWeight: "bold",
+            color: "black",
+          }}
+        >
+          Books:
+        </Text>
+        <View style={{ marginTop: 20 }}>
+          <FlatList
+            data={Sale}
+            numColumns={3}
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item, index }) => {
+              return (
+                <TouchableOpacity
+                  onPress={() =>
+                    props.navigation.navigate("DocumentView", {
+                      type: item.title,
+                      typeImage: item.image,
+                      item: item,
+                    })
+                  }
+                  activeOpacity={0.5}
+                  style={{
+                    width: width * 0.28,
+                    alignItems: "center",
+                    marginLeft: 7,
+                    marginBottom: 15,
+                  }}
+                >
+                  <View
+                    style={{
+                      padding: 10,
+                      borderRadius: 3,
+                      backgroundColor: currentTheme.cEFEFEF,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <View
+                      style={{
+                        height: 80,
+                        width: 80,
+                        borderRadius: 5,
+                        overflow: "hidden",
+                      }}
+                    >
+                      <Image
+                        source={item.image}
+                        style={{
+                          height: "100%",
+                          width: "100%",
+                          borderRadius: 5,
+                        }}
+                        resizeMode={"contain"}
+                      />
+                    </View>
+                  </View>
+                  <Text
+                    numberOfLines={2}
+                    style={{
+                      fontSize: 10,
+                      textAlign: "center",
+                      color: "black",
+                      width: "85%",
+                      marginTop: 5,
+                    }}
+                  >
+                    {item.title}
+                  </Text>
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </View>
         <View style={{ alignItems: "center", marginTop: 20 }}>
           {arivals.map((item, index) => {
             return (
@@ -472,6 +596,7 @@ export default function ShopHome(props) {
                               book: books,
                               type: item.type,
                               typeImage: item.image,
+                              item: books,
                             })
                           }
                           Title={"View Details"}

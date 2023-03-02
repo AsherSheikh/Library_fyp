@@ -1,15 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
   Platform,
-  Animated,
   Dimensions,
-  Modal,
   FlatList,
   Text,
   TouchableOpacity,
   View,
   Image,
-  Linking,
   LayoutAnimation,
   UIManager,
 } from "react-native";
@@ -37,37 +34,38 @@ export default function DocumentListing(props) {
     {
       title:
         "Fundamentals of Machine Learning for Predictive Data Analytics – Algorithms",
-      image: require("../../assets/images/artificial-intelligence.png"),
+      image: require("../../assets/images/cover324.png"),
       price: 10,
       perItemprice: 10,
-      quantity: 1,
+      quantity: 3,
     },
     {
       title: "Artificial Intelligence For Dummies (2nd Edition)",
-      image: require("../../assets/images/artificial-intelligence.png"),
+      image: require("../../assets/images/cover12.jpg"),
       price: 12.25,
       perItemprice: 12.25,
-      quantity: 1,
+      quantity: 5,
     },
     {
       title: "Network Programmability and Automation",
-      image: require("../../assets/images/networking.png"),
+      image: require("../../assets/images/cover21.jpg"),
       price: 8.5,
       perItemprice: 8.5,
-      quantity: 1,
+      quantity: 2,
     },
     {
       title: "Network Programmability and Automation",
       image: require("../../assets/images/networking.png"),
       price: 25,
       perItemprice: 25,
-      quantity: 1,
+      quantity: 3,
     },
   ]);
 
   const initialValue = 0;
   const total = cartitem.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.price,
+    (accumulator, currentValue) =>
+      accumulator + currentValue.price * currentValue.quantity,
     initialValue
   );
 
@@ -114,6 +112,7 @@ export default function DocumentListing(props) {
       LeftIcon={true}
       withoutScroll={true}
       pagetitle={"My Cart"}
+      NotiIcon={undefined}
       style={[styles().ph0]}
     >
       <View style={[styles().flex, { marginHorizontal: width * 0.04 }]}>
@@ -194,7 +193,7 @@ export default function DocumentListing(props) {
                     }}
                   >
                     <Text style={{ fontSize: 16, fontWeight: "600" }}>
-                      ${item.price}
+                      ${item.perItemprice * item.quantity}
                     </Text>
                     <View
                       style={{ flexDirection: "row", alignItems: "center" }}

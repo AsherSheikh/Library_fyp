@@ -35,19 +35,18 @@ const MenuItems = [
     Image: require("../../assets/images/my-properties.png"),
     navigateTo: "Department",
   },
-
   {
     id: 3,
     name: "Search",
     Image: require("../../assets/images/my-properties.png"),
     navigateTo: "Search",
   },
-  {
-    id: 3,
-    name: "My Cart",
-    Image: require("../../assets/images/my-properties.png"),
-    navigateTo: "Cart",
-  },
+  // {
+  //   id: 3,
+  //   name: "My Cart",
+  //   Image: require("../../assets/images/my-properties.png"),
+  //   navigateTo: "Cart",
+  // },
 ];
 
 export default function SideBar(props) {
@@ -77,6 +76,17 @@ export default function SideBar(props) {
 
   useEffect(() => {
     getPropertyAsync();
+  }, []);
+
+  const [currentRole, setCurrentRole] = useState("");
+
+  async function Role() {
+    let role = await AsyncStorage.getItem("role");
+    setCurrentRole(role);
+  }
+
+  useEffect(() => {
+    Role();
   }, []);
 
   return (
@@ -120,25 +130,26 @@ export default function SideBar(props) {
           />
         </View>
         <View style={[styles().flex]}>
-          <FlatList
-            data={MenuItems}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => {
-              return (
-                <TouchableOpacity
-                  onPress={async () => {
-                    props.navigation.navigate(item.navigateTo);
-                  }}
-                  style={[
-                    styles().flexRow,
-                    styles().flex,
-                    styles().alignCenter,
-                    styles().pv10,
-                    styles().mb10,
-                  ]}
-                >
-                  <View style={[styles().mr20, styles().wh20px]}>
-                    {/* <Image
+          {currentRole === "student" ? (
+            <FlatList
+              data={MenuItems}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item, index }) => {
+                return (
+                  <TouchableOpacity
+                    onPress={async () => {
+                      props.navigation.navigate(item.navigateTo);
+                    }}
+                    style={[
+                      styles().flexRow,
+                      styles().flex,
+                      styles().alignCenter,
+                      styles().pv10,
+                      styles().mb10,
+                    ]}
+                  >
+                    <View style={[styles().mr20, styles().wh20px]}>
+                      {/* <Image
                       source={item.Image}
                       style={[
                         styles().wh100,
@@ -151,68 +162,69 @@ export default function SideBar(props) {
                       ]}
                       resizeMode={"contain"}
                     /> */}
-                    <Entypo
-                      name="list"
-                      size={20}
-                      color={currentTheme.themeBackground}
-                    />
-                  </View>
-                  <View>
-                    <Text
-                      style={[
-                        styles().fs13,
-                        styles().fw600,
-                        {
-                          color:
-                            item.id === 6
-                              ? currentTheme.BCBCBC
-                              : currentTheme.black,
-                        },
-                      ]}
-                    >
-                      {item.name}
-                    </Text>
-                    {item.id === 6 && (
+                      <Entypo
+                        name="list"
+                        size={20}
+                        color={currentTheme.themeBackground}
+                      />
+                    </View>
+                    <View>
                       <Text
                         style={[
-                          styles().fs10,
-                          styles().fw400,
-                          { color: currentTheme.BCBCBC },
+                          styles().fs13,
+                          styles().fw600,
+                          {
+                            color:
+                              item.id === 6
+                                ? currentTheme.BCBCBC
+                                : currentTheme.black,
+                          },
                         ]}
                       >
-                        Feature coming soon
+                        {item.name}
                       </Text>
-                    )}
-                  </View>
-                </TouchableOpacity>
-              );
-            }}
-            keyExtractor={(item, index) => index.toString()}
-            ListFooterComponent={
-              <TouchableOpacity
-                onPress={() => Logout()}
-                style={[styles().flexRow, styles().pv10]}
-              >
-                <View style={[styles().mr20, styles().wh20px]}>
-                  <Image
-                    source={require("../../assets/images/logout.png")}
-                    style={styles().wh100}
-                    resizeMode="contain"
-                    tintColor={"#f85d31"}
-                  />
-                </View>
-                <Text
-                  style={[
-                    styles().fs13,
-                    styles().fw600,
-                    { color: currentTheme.black },
-                  ]}
+                      {item.id === 6 && (
+                        <Text
+                          style={[
+                            styles().fs10,
+                            styles().fw400,
+                            { color: currentTheme.BCBCBC },
+                          ]}
+                        >
+                          Feature coming soon
+                        </Text>
+                      )}
+                    </View>
+                  </TouchableOpacity>
+                );
+              }}
+              keyExtractor={(item, index) => index.toString()}
+              ListFooterComponent={
+                <TouchableOpacity
+                  onPress={() => Logout()}
+                  style={[styles().flexRow, styles().pv10]}
                 >
-                  Logout
-                </Text>
-              </TouchableOpacity>
-            }
-          />
+                  <View style={[styles().mr20, styles().wh20px]}>
+                    <Image
+                      source={require("../../assets/images/logout.png")}
+                      style={styles().wh100}
+                      resizeMode="contain"
+                      tintColor={"#f85d31"}
+                    />
+                  </View>
+                  <Text
+                    style={[
+                      styles().fs13,
+                      styles().fw600,
+                      { color: currentTheme.black },
+                    ]}
+                  >
+                    Logout
+                  </Text>
+                </TouchableOpacity>
+              }
+            />
+          ) : null}
           {/* <TouchableOpacity
             onPress={() => Logout()}
             style={[styles().flexRow, styles().pv10, {borderWidth:2}]}

@@ -34,6 +34,7 @@ export default function Login(props) {
   const [currentRole, setCurrentRole] = useState("");
   let role = props?.route?.params;
   const [ConfirmiconEye, setConfirmIconEye] = useState("eye-slash");
+
   function onChangeIconConfirm() {
     if (ConfirmiconEye === "eye") {
       setConfirmIconEye("eye-slash");
@@ -59,7 +60,10 @@ export default function Login(props) {
         return;
       } else {
         FlashMessage({ msg: "Login Successfully", type: "success" });
-        await AsyncStorage.setItem("token", "library123");
+        await AsyncStorage.setItem(
+          "token",
+          currentRole === "student" ? "student" : "shop"
+        );
         props.navigation.dispatch(
           CommonActions.reset({
             index: 0,
@@ -83,8 +87,8 @@ export default function Login(props) {
       await AsyncStorage.setItem("role", "student");
       setCurrentRole("student");
     } else {
-      await AsyncStorage.setItem("role", "shopkeeper");
-      setCurrentRole("shopkeeper");
+      await AsyncStorage.setItem("role", "shop");
+      setCurrentRole("shop");
     }
   }
 
@@ -108,7 +112,7 @@ export default function Login(props) {
                 { color: currentTheme.black },
               ]}
             >
-              {`Welcome To Smart Library`}
+              {`Welcome To Online Library`}
             </Text>
             <Text
               style={[
@@ -118,7 +122,7 @@ export default function Login(props) {
                 { color: currentTheme.themeBackground },
               ]}
             >
-              {currentRole !== "shopkeeper" ? `Student` : "ShopKeeper"}
+              {currentRole !== "shop" ? `Student` : "Shop"}
             </Text>
           </View>
 

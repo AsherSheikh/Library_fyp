@@ -46,10 +46,37 @@ export default function Home(props) {
     },
   ];
 
-  let tabs = [
-    { title: "No. of Courses :", count: 10 },
-    { title: "No. of Books :", count: 43 },
-    // { title: "", count: 10 },
+  let top = [
+    {
+      count: 10,
+      image: require("../../assets/images/cover12.jpg"),
+      title: "Artificial Intelligence For Dummies (2nd Edition)",
+      Author: "Tom Taulli",
+    },
+    {
+      count: 10,
+      title: "Being Human in the Age of Artificial Intelligence",
+      Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+      image: require("../../assets/images/cover123.jpg"),
+    },
+    {
+      count: 10,
+      image: require("../../assets/images/cover21.jpg"),
+      title: "Computer Networking: A Top-Down Approach",
+      Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+    },
+    {
+      count: 10,
+      title: "CompTIA Network+ Certification All-in-One Exam Guide",
+      Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+      image: require("../../assets/images/cover324.png"),
+    },
+    {
+      count: 10,
+      image: require("../../assets/images/cover421.jpg"),
+      title: "CompTIA Network+ Certification All-in-One Exam Guide",
+      Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+    },
   ];
 
   let arivals = [
@@ -60,6 +87,7 @@ export default function Home(props) {
         {
           title: "Artificial Intelligence For Dummies (2nd Edition)",
           Shelf: "Python: Beginner's Guide to Artificial Intelligence",
+          image: require("../../assets/images/artificial-intelligence.png"),
           Author: "Tom Taulli",
           available: true,
           count: 18,
@@ -69,6 +97,7 @@ export default function Home(props) {
           title:
             "Fundamentals of Machine Learning for Predictive Data Analytics – Algorithms",
           Shelf: "Shelf no: 15",
+          image: require("../../assets/images/artificial-intelligence.png"),
           Author: "Denis Rothman, Matthew Lamons, Rahul Kumar",
           available: false,
           count: 4,
@@ -77,6 +106,7 @@ export default function Home(props) {
         {
           title: "Being Human in the Age of Artificial Intelligence",
           Shelf: "Shelf no: 15",
+          image: require("../../assets/images/artificial-intelligence.png"),
           Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
           available: true,
           count: 14,
@@ -91,6 +121,7 @@ export default function Home(props) {
         {
           title: "CompTIA Network+ Certification All-in-One Exam Guide",
           Shelf: "Shelf no: 15",
+          image: require("../../assets/images/networking.png"),
           Author: "Mike Meyers",
           available: true,
           count: 13,
@@ -99,6 +130,7 @@ export default function Home(props) {
         {
           title: "Network Programmability and Automation",
           Shelf: "Shelf no: 15",
+          image: require("../../assets/images/networking.png"),
           Author: "Jason Edelman",
           available: false,
           count: 11,
@@ -107,6 +139,7 @@ export default function Home(props) {
         {
           title: "Computer Networking: A Top-Down Approach",
           Shelf: "Shelf no: 15",
+          image: require("../../assets/images/networking.png"),
           Author: "James Kurose",
           available: true,
           count: 10,
@@ -115,6 +148,7 @@ export default function Home(props) {
         {
           title: "Computer Networks",
           Shelf: "Shelf no: 15",
+          image: require("../../assets/images/networking.png"),
           Author: "Tanenbaum",
           available: true,
           count: 4,
@@ -142,8 +176,9 @@ export default function Home(props) {
     <Layout
       navigation={props.navigation}
       property={"Library"}
-      NotiIcon={true}
+      NotiIcon={false}
       withoutScroll={false}
+      LeftIcon={false}
       ProfileImg={true}
       pagetitle={`Welcome To Library`}
       style={styles().ph0}
@@ -156,43 +191,77 @@ export default function Home(props) {
           },
         ]}
       >
+        <Text
+          style={{
+            marginTop: 15,
+            fontWeight: "bold",
+            color: "black",
+          }}
+        >
+          Top Rated Books:
+        </Text>
         <View style={{ alignItems: "center", marginTop: 20 }}>
           <FlatList
-            numColumns={2}
-            data={tabs}
+            horizontal
+            data={top}
+            showsHorizontalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => {
               return (
                 <TouchableOpacity
+                  onPress={() =>
+                    props.navigation.navigate("DocumentView", {
+                      type: item.title,
+                      typeImage: item.image,
+                      item: item,
+                    })
+                  }
                   activeOpacity={0.5}
                   style={{
-                    paddingHorizontal: 10,
-                    width: "45%",
-                    height: 80,
-                    borderRadius: 10,
-                    backgroundColor: currentTheme.themeBackground,
+                    width: width * 0.35,
                     alignItems: "center",
-                    justifyContent: "center",
-                    marginLeft: 10,
+                    marginLeft: 5,
                   }}
                 >
-                  <Text
+                  <View
                     style={{
-                      fontSize: 16,
-                      fontWeight: "bold",
-                      color: currentTheme.white,
+                      padding: 10,
+                      borderRadius: 3,
+                      backgroundColor: currentTheme.cEFEFEF,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <View
+                      style={{
+                        height: 100,
+                        width: 100,
+                        borderRadius: 5,
+                        overflow: "hidden",
+                      }}
+                    >
+                      <Image
+                        source={item.image}
+                        style={{
+                          height: "100%",
+                          width: "100%",
+                          borderRadius: 5,
+                        }}
+                        resizeMode={"contain"}
+                      />
+                    </View>
+                  </View>
+                  <Text
+                    numberOfLines={2}
+                    style={{
+                      fontSize: 12,
+                      textAlign: "center",
+                      color: "black",
+                      width: "85%",
+                      marginTop: 5,
                     }}
                   >
                     {item.title}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: "600",
-                      color: currentTheme.white,
-                    }}
-                  >
-                    {item.count}
                   </Text>
                 </TouchableOpacity>
               );
@@ -225,7 +294,7 @@ export default function Home(props) {
               return (
                 <TouchableOpacity
                   onPress={() =>
-                    props.navigation.navigate("Courses", {
+                    props.navigation.navigate("UnderDepartment", {
                       type: item.name,
                       typeImage: require("../../assets/images/shopping-mall.png"),
                     })
@@ -357,7 +426,7 @@ export default function Home(props) {
                         { marginHorizontal: 10 },
                       ]}
                     >
-                      <TouchableOpacity
+                      {/* <TouchableOpacity
                         onPress={() =>
                           FlashMessage({
                             msg: books?.title + " Added To Cart",
@@ -379,7 +448,7 @@ export default function Home(props) {
                           color={currentTheme.white}
                           size={18}
                         />
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
                       <View
                         style={[
                           styles().wh80px,
@@ -472,6 +541,7 @@ export default function Home(props) {
                               book: books,
                               type: item.type,
                               typeImage: item.image,
+                              item: books,
                             })
                           }
                           Title={"View Details"}

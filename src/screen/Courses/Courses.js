@@ -28,6 +28,7 @@ import {
 import Layout from "../../Component/Layout/Layout";
 import ThemeButton from "../../Component/ThemeButton/ThemeButton";
 import FlashMessage from "../../Component/FlashMessage/FlashMessage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width, height } = Dimensions.get("window");
 
@@ -65,6 +66,17 @@ export default function Courses(props) {
       path: "https://www.africau.edu/images/default/sample.pdf",
     },
   ];
+
+  const [currentRole, setCurrentRole] = useState("");
+
+  async function Role() {
+    let role = await AsyncStorage.getItem("role");
+    setCurrentRole(role);
+  }
+
+  useEffect(() => {
+    Role();
+  }, []);
   return (
     <Layout
       navigation={props.navigation}
@@ -121,9 +133,17 @@ export default function Courses(props) {
                 activeOpacity={0.5}
                 key={index}
                 onPress={() => {
-                  Linking.openURL(item.path).catch((err) =>
-                    console.error("Error in linking", err)
-                  );
+                  if (currentRole === "shop") {
+                    FlashMessage({
+                      msg:
+                        "Add this Book to Cart to Read the Complete Version.",
+                      type: "warning",
+                    });
+                  } else {
+                    Linking.openURL(item.path).catch((err) =>
+                      console.error("Error in linking", err)
+                    );
+                  }
                 }}
                 style={[
                   styles().mb20,
@@ -135,6 +155,19 @@ export default function Courses(props) {
                 ]}
               >
                 <TouchableOpacity
+                  onPress={() => {
+                    if (currentRole === "shop") {
+                      FlashMessage({
+                        msg:
+                          "Add this Book to Cart to Read the Complete Version.",
+                        type: "warning",
+                      });
+                    } else {
+                      Linking.openURL(item.path).catch((err) =>
+                        console.error("Error in linking", err)
+                      );
+                    }
+                  }}
                   style={[
                     styles().w100,
                     styles().boxpeshadow,
@@ -145,31 +178,33 @@ export default function Courses(props) {
                     styles().br5,
                   ]}
                 >
-                  <TouchableOpacity
-                    onPress={() =>
-                      FlashMessage({
-                        msg: book?.title
-                          ? book?.title
-                          : type + " " + item?.title + " Added To Cart",
-                        type: "success",
-                      })
-                    }
-                    style={{
-                      position: "absolute",
-                      backgroundColor: currentTheme.themeBackground,
-                      right: 0,
-                      margin: 8,
-                      borderRadius: 5,
-                      padding: 5,
-                      zIndex: 100,
-                    }}
-                  >
-                    <Ionicons
-                      name="cart"
-                      color={currentTheme.white}
-                      size={18}
-                    />
-                  </TouchableOpacity>
+                  {currentRole === "shop" ? (
+                    <TouchableOpacity
+                      onPress={() =>
+                        FlashMessage({
+                          msg: book?.title
+                            ? book?.title
+                            : type + " " + item?.title + " Added To Cart",
+                          type: "success",
+                        })
+                      }
+                      style={{
+                        position: "absolute",
+                        backgroundColor: currentTheme.themeBackground,
+                        right: 0,
+                        margin: 8,
+                        borderRadius: 5,
+                        padding: 5,
+                        zIndex: 100,
+                      }}
+                    >
+                      <Ionicons
+                        name="cart"
+                        color={currentTheme.white}
+                        size={18}
+                      />
+                    </TouchableOpacity>
+                  ) : null}
                   <View
                     style={[
                       styles().wh100,

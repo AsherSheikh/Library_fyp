@@ -252,7 +252,7 @@ export default function Signup(props) {
                 }
               />
             </View>
-            <View style={[styles().mb20]}>
+            {/* <View style={[styles().mb20]}>
               <Text
                 style={[
                   styles().fs12,
@@ -323,11 +323,11 @@ export default function Signup(props) {
                       color: currentTheme.black,
                     }}
                   >
-                    SHOPKEEPER
+                    SHOP
                   </Text>
                 </View>
               </View>
-            </View>
+            </View> */}
             <View style={[styles().mb30, styles().mt20]}>
               {!loading ? (
                 <ThemeButton

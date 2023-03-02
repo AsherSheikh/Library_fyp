@@ -62,9 +62,9 @@ export default function Login(props) {
           </View>
           <View style={[styles().mt20]}>
             <ThemeButton
-              Title={"Login as ShopKeeper"}
+              Title={"Online Shop"}
               onPress={async () => {
-                props.navigation.navigate("Login", { isShopKeeper: true });
+                props.navigation.navigate("Login", { isShop: true });
               }}
             />
           </View>

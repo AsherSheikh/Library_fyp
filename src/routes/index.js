@@ -35,6 +35,7 @@ import Courses from "../screen/Courses/Courses";
 import Checkout from "../screen/Checkout/Checkout";
 import Role from "../screen/Role/Role";
 import ShopHome from "../screen/ShopHome/ShopHome";
+import UnderDepartment from "../screen/UnderDepartment/UnderDepartment";
 
 // Auth Stack
 import LandingScreen from "../screen/Landing/Landing";
@@ -107,6 +108,7 @@ function HomeNavigator() {
       <HomeStack.Screen name="Courses" component={Courses} />
       <HomeStack.Screen name="Cart" component={Cart} />
       <HomeStack.Screen name="Checkout" component={Checkout} />
+      <HomeStack.Screen name="UnderDepartment" component={UnderDepartment} />
     </HomeStack.Navigator>
   );
 }
@@ -126,6 +128,7 @@ function ShopNavigator() {
       <HomeStack.Screen name="Search" component={Search} />
       <HomeStack.Screen name="Courses" component={Courses} />
       <HomeStack.Screen name="Cart" component={Cart} />
+      <HomeStack.Screen name="UnderDepartment" component={UnderDepartment} />
       <HomeStack.Screen name="Checkout" component={Checkout} />
     </HomeStack.Navigator>
   );
@@ -267,7 +270,13 @@ function AppContainer(props) {
         <MainStack.Navigator
           headerMode="none"
           screenOptions={{ gestureEnabled: false }}
-          initialRouteName={token ? "noDrawer" : "Landing"}
+          initialRouteName={
+            token === "shop"
+              ? "noDrawer2"
+              : token === "student"
+              ? "noDrawer"
+              : "Landing"
+          }
         >
           <MainStack.Screen name="Auth" component={authenticationNavigator} />
           <MainStack.Screen name="Landing" component={LandingNavigator} />

@@ -1,11 +1,16 @@
 import React, { useContext } from "react";
 import { View, Text, Image, Platform, TouchableOpacity } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import ThemeContext from "../../context/ThemeContext/ThemeContext";
 import { theme } from "../../context/ThemeContext/ThemeColor";
 import styles from "../../screen/styles";
 import UserContext from "../../context/User/User";
-import { DrawerActions } from "@react-navigation/native";
+import { CommonActions, DrawerActions } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Header(props) {
   const user = useContext(UserContext);
@@ -108,6 +113,55 @@ export default function Header(props) {
     );
   }
 
+  function Carticn() {
+    return (
+      <TouchableOpacity
+        onPress={() => props.navigation.navigate("Cart")}
+        style={{
+          position: "absolute",
+          backgroundColor: currentTheme.themeBackground,
+          right: 0,
+          margin: 8,
+          borderRadius: 100,
+          padding: 5,
+        }}
+      >
+        <Ionicons name="cart" color={currentTheme.white} size={25} />
+      </TouchableOpacity>
+    );
+  }
+
+  async function Logout() {
+    props.navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: "Auth" }],
+      })
+    );
+    await AsyncStorage.clear().then(() => console.log("async clear - logout!"));
+  }
+
+  function Exitstore() {
+    return (
+      <TouchableOpacity
+        onPress={() => Logout()}
+        style={[
+          styles().boxpeshadow,
+          styles().br5,
+          styles().pall5,
+          styles().wh40px,
+          styles().justifyEvenly,
+        ]}
+      >
+        <MaterialCommunityIcons
+          name="exit-to-app"
+          color={currentTheme.themeBackground}
+          size={25}
+        />
+      </TouchableOpacity>
+    );
+  }
+
   return (
     <View
       style={[
@@ -121,7 +175,13 @@ export default function Header(props) {
         props.HeaderStyle,
       ]}
     >
-      {props.LeftIcon ? <Back /> : <Menu />}
+      {props.LeftIcon === true ? (
+        <Back />
+      ) : props.LeftIcon === false ? (
+        <Menu />
+      ) : (
+        <Exitstore />
+      )}
 
       <Text
         numberOfLines={1}
@@ -147,7 +207,11 @@ export default function Header(props) {
           styles().alignCenter,
         ]}
       >
-        {props.NotiIcon ? <NotiIcon /> : null}
+        {props.NotiIcon === true ? (
+          <NotiIcon />
+        ) : props.NotiIcon === false && !props.ProfileImg ? (
+          <Carticn />
+        ) : null}
         {props.ProfileImg ? <ProfileImg /> : null}
         {props.NotiIcon === undefined || props.ProfileImg === undefined ? (
           <View style={[styles().w25px]} />

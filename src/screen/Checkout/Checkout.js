@@ -25,9 +25,9 @@ export default function DocumentListing(props) {
   const currentTheme = theme[themeContext.ThemeValue];
   let { cartitem, total } = props.route?.params;
   let cal = [
-    { title: "Subtotal", amount: `$${total}` },
-    { title: "Discount", amount: "$0.00" },
-    { title: "Delivery", amount: "Cash on Delivery" },
+    { title: "Subtotal:", amount: `$${total}` },
+    { title: "Discount:", amount: "$0.00" },
+    { title: "Delivery Method:", amount: "Cash on Delivery" },
   ];
   const [orderPopup, setOrderPopup] = useState(false);
 
@@ -86,7 +86,7 @@ export default function DocumentListing(props) {
               <ThemeButton
                 onPress={() => {
                   setOrderPopup(false);
-                  props.navigation.navigate("Home");
+                  props.navigation.navigate("ShopHome");
                 }}
                 Title={"Done"}
                 StyleText={{ color: currentTheme.white, fontSize: 14 }}
@@ -179,7 +179,22 @@ export default function DocumentListing(props) {
                       justifyContent: "space-between",
                     }}
                   >
-                    <Text>${item.price}</Text>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        color: "black",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      ${item.price}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        color: "black",
+                        fontWeight: "600",
+                      }}
+                    >{`Quantity: ${item.quantity}`}</Text>
                   </View>
                 </View>
               </View>

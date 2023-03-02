@@ -15,6 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Layout from "../../Component/Layout/Layout";
 import ThemeButton from "../../Component/ThemeButton/ThemeButton";
 import FlashMessage from "../../Component/FlashMessage/FlashMessage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width, height } = Dimensions.get("window");
 
@@ -27,7 +28,7 @@ export default function DocumentListing(props) {
     {
       title: "Artificial Intelligence For Dummies (2nd Edition)",
       Shelf: "Python: Beginner's Guide to Artificial Intelligence",
-      image: require("../../assets/images/artificial-intelligence.png"),
+      image: require("../../assets/images/cover123.jpg"),
       Author: "Tom Taulli",
       available: true,
       count: 18,
@@ -38,7 +39,7 @@ export default function DocumentListing(props) {
         "Fundamentals of Machine Learning for Predictive Data Analytics – Algorithms",
       Shelf: "Shelf no: 15",
       Author: "Denis Rothman, Matthew Lamons, Rahul Kumar",
-      image: require("../../assets/images/artificial-intelligence.png"),
+      image: require("../../assets/images/cover21.jpg"),
       available: false,
       count: 4,
       total: 6,
@@ -47,7 +48,7 @@ export default function DocumentListing(props) {
       title: "Being Human in the Age of Artificial Intelligence",
       Shelf: "Shelf no: 15",
       Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
-      image: require("../../assets/images/artificial-intelligence.png"),
+      image: require("../../assets/images/cover12.jpg"),
       available: true,
       count: 14,
       total: 20,
@@ -65,7 +66,7 @@ export default function DocumentListing(props) {
       title: "Network Programmability and Automation",
       Shelf: "Shelf no: 15",
       Author: "Jason Edelman",
-      image: require("../../assets/images/networking.png"),
+      image: require("../../assets/images/cover421.jpg"),
       available: false,
       count: 11,
       total: 14,
@@ -73,7 +74,7 @@ export default function DocumentListing(props) {
     {
       title: "Computer Networking: A Top-Down Approach",
       Shelf: "Shelf no: 15",
-      image: require("../../assets/images/networking.png"),
+      image: require("../../assets/images/cover12.jpg"),
       Author: "James Kurose",
       available: true,
       count: 10,
@@ -89,6 +90,17 @@ export default function DocumentListing(props) {
       total: 6,
     },
   ];
+
+  const [currentRole, setCurrentRole] = useState("");
+
+  async function Role() {
+    let role = await AsyncStorage.getItem("role");
+    setCurrentRole(role);
+  }
+
+  useEffect(() => {
+    Role();
+  }, []);
 
   return (
     <Layout
@@ -148,25 +160,31 @@ export default function DocumentListing(props) {
           ) {
             return (
               <View>
-                <TouchableOpacity
-                  onPress={() =>
-                    FlashMessage({
-                      msg: item?.title + " Added To Cart",
-                      type: "success",
-                    })
-                  }
-                  style={{
-                    position: "absolute",
-                    backgroundColor: currentTheme.themeBackground,
-                    right: 0,
-                    margin: 8,
-                    borderRadius: 5,
-                    padding: 5,
-                    zIndex: 100,
-                  }}
-                >
-                  <Ionicons name="cart" color={currentTheme.white} size={18} />
-                </TouchableOpacity>
+                {currentRole === "shop" ? (
+                  <TouchableOpacity
+                    onPress={() =>
+                      FlashMessage({
+                        msg: item?.title + " Added To Cart",
+                        type: "success",
+                      })
+                    }
+                    style={{
+                      position: "absolute",
+                      backgroundColor: currentTheme.themeBackground,
+                      right: 0,
+                      margin: 8,
+                      borderRadius: 5,
+                      padding: 5,
+                      zIndex: 100,
+                    }}
+                  >
+                    <Ionicons
+                      name="cart"
+                      color={currentTheme.white}
+                      size={18}
+                    />
+                  </TouchableOpacity>
+                ) : null}
                 <View
                   style={[
                     styles().justifyBetween,
@@ -269,8 +287,9 @@ export default function DocumentListing(props) {
                     <ThemeButton
                       onPress={() =>
                         props.navigation.navigate("DocumentView", {
-                          type: item.type,
+                          type: item.title,
                           typeImage: item.image,
+                          item: item,
                         })
                       }
                       Title={"View Details"}

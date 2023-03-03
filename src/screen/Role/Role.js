@@ -31,30 +31,43 @@ export default function Login(props) {
         keyboardVerticalOffset={50}
       >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={[styles().mt25, styles().mb35]}>
+          <View
+            style={[
+              styles().mt25,
+              { flexDirection: "row", alignItems: "center" },
+            ]}
+          >
             <Text
               style={[
                 styles().fs20,
                 styles().fontBold,
                 styles().textUpper,
-                { color: currentTheme.black },
+                { color: currentTheme.black, alignSelf: "center" },
               ]}
             >
               Welcome To Smart Library
             </Text>
           </View>
-
           <View style={[styles().flex, styles().justifyEnd, styles().mb35]}>
             <Image
-              source={require("../../assets/images/books.png")}
+              source={require("../../assets/images/library-drawer.png")}
               resizeMode="contain"
-              style={{ height: 150, width: "70%", alignSelf: "center" }}
+              style={{ height: 30, width: 30, alignSelf: "flex-start" }}
             />
           </View>
 
-          <View style={[styles().mt50]}>
+          <View style={[styles().flex, styles().justifyEnd, styles().mb35]}>
+            <Image
+              source={require("../../assets/images/welocme.png")}
+              resizeMode="contain"
+              style={{ height: 250, width: "100%", alignSelf: "center" }}
+            />
+          </View>
+
+          <View style={[]}>
             <ThemeButton
               Title={"Login as Student"}
+              Style={{ borderWidth: 2, borderColor: currentTheme.yellow }}
               onPress={async () => {
                 props.navigation.navigate("Login", { isStudent: true });
               }}
@@ -63,6 +76,7 @@ export default function Login(props) {
           <View style={[styles().mt20]}>
             <ThemeButton
               Title={"Online Shop"}
+              Style={{ borderWidth: 2, borderColor: currentTheme.yellow }}
               onPress={async () => {
                 props.navigation.navigate("Login", { isShop: true });
               }}

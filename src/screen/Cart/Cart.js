@@ -193,7 +193,7 @@ export default function DocumentListing(props) {
                     }}
                   >
                     <Text style={{ fontSize: 16, fontWeight: "600" }}>
-                      ${item.perItemprice * item.quantity}
+                      {"Rs " + item.perItemprice * item.quantity}
                     </Text>
                     <View
                       style={{ flexDirection: "row", alignItems: "center" }}
@@ -266,7 +266,7 @@ export default function DocumentListing(props) {
                   fontWeight: "600",
                 }}
               >
-                {`$${total?.toFixed(2)}`}
+                {`Rs ${total?.toFixed(2)}`}
               </Text>
             </View>
           )}

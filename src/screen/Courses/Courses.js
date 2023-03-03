@@ -82,7 +82,7 @@ export default function Courses(props) {
       navigation={props.navigation}
       LeftIcon={true}
       withoutScroll={true}
-      pagetitle={book?.title ? book?.title : type}
+      pagetitle={book?.title ? book?.title + " Books" : type + " Books"}
       style={[styles().ph0]}
     >
       <View style={[styles().flex, { marginHorizontal: width * 0.04 }]}>

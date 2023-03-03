@@ -22,47 +22,26 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const { width, height } = Dimensions.get("window");
 
 export default function Home(props) {
-  const HomeTopList = [
-    {
-      Image: require("../../assets/images/home-top-img1.png"),
-      title: "Your Text",
-      onPress: () => {
-        console.log("1");
-      },
-    },
-    {
-      Image: require("../../assets/images/home-top-img2.png"),
-      title: "Your Text",
-      onPress: () => {
-        console.log("2");
-      },
-    },
-    {
-      Image: require("../../assets/images/home-top-img3.png"),
-      title: "Your Text",
-      onPress: () => {
-        console.log("3");
-      },
-    },
-  ];
-
   let top = [
     {
       count: 10,
       image: require("../../assets/images/cover12.jpg"),
       title: "Artificial Intelligence For Dummies (2nd Edition)",
       Author: "Tom Taulli",
+      price: 10,
     },
     {
       count: 10,
       title: "Being Human in the Age of Artificial Intelligence",
       Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
       image: require("../../assets/images/cover123.jpg"),
+      price: 10,
     },
     {
       count: 10,
       image: require("../../assets/images/cover21.jpg"),
       title: "Computer Networking: A Top-Down Approach",
+      price: 10,
       Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
     },
     {
@@ -70,12 +49,14 @@ export default function Home(props) {
       title: "CompTIA Network+ Certification All-in-One Exam Guide",
       Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
       image: require("../../assets/images/cover324.png"),
+      price: 10,
     },
     {
       count: 10,
       image: require("../../assets/images/cover421.jpg"),
       title: "CompTIA Network+ Certification All-in-One Exam Guide",
       Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
+      price: 10,
     },
   ];
 
@@ -92,6 +73,7 @@ export default function Home(props) {
           available: true,
           count: 18,
           total: 25,
+          price: 10,
         },
         {
           title:
@@ -101,6 +83,7 @@ export default function Home(props) {
           Author: "Denis Rothman, Matthew Lamons, Rahul Kumar",
           available: false,
           count: 4,
+          price: 10,
           total: 6,
         },
         {
@@ -110,6 +93,7 @@ export default function Home(props) {
           Author: "John D. Kelleher, Brian Mac Namee, Aoife D’Arcy",
           available: true,
           count: 14,
+          price: 10,
           total: 20,
         },
       ],
@@ -126,6 +110,7 @@ export default function Home(props) {
           available: true,
           count: 13,
           total: 26,
+          price: 10,
         },
         {
           title: "Network Programmability and Automation",
@@ -135,6 +120,7 @@ export default function Home(props) {
           available: false,
           count: 11,
           total: 14,
+          price: 10,
         },
         {
           title: "Computer Networking: A Top-Down Approach",
@@ -143,6 +129,7 @@ export default function Home(props) {
           Author: "James Kurose",
           available: true,
           count: 10,
+          price: 10,
           total: 19,
         },
         {
@@ -152,6 +139,7 @@ export default function Home(props) {
           Author: "Tanenbaum",
           available: true,
           count: 4,
+          price: 10,
           total: 6,
         },
       ],
@@ -159,14 +147,32 @@ export default function Home(props) {
   ];
 
   let departments = [
-    { name: "Departments of Administration." },
-    { name: "Departments of Arts and Humanities." },
-    { name: "Departments of Business, Economics and Administrative Sciences." },
-    { name: "Departments of Commerce." },
-    // { name: "Departments of Computing & Information Technology." },
-    // { name: "Departments of Law." },
-    // { name: "Departments of Computer Science." },
-    // { name: "Departments of  Artificial Intelligence" },
+    {
+      name: "Departments of Computer Science.",
+      courses: [
+        { name: "Bachelor's Degree in Computer Science (CS)" },
+        { name: "Bachelor's Degree in Software Engineering (SE)" },
+        { name: "Bachelor's Degree in Artifical Intelligence (AI)" },
+      ],
+    },
+    {
+      name: "Departments of Mathematics.",
+      courses: [{ name: "Bachelor's Degree in Mathematics" }],
+    },
+    {
+      name: "Departments of Management.",
+      courses: [
+        { name: "Bachelor's Degree in Accountng and Finance" },
+        { name: "Bachelor's Degree in Bussiness Administration" },
+      ],
+    },
+    {
+      name: "Departments of Electrical Engineering.",
+      courses: [
+        { name: "Bachelor's Degree in Computer Engineering" },
+        { name: "Bachelor's Degree in Electrical Engineering" },
+      ],
+    },
   ];
 
   const themeContext = useContext(ThemeContext);
@@ -297,6 +303,7 @@ export default function Home(props) {
                     props.navigation.navigate("UnderDepartment", {
                       type: item.name,
                       typeImage: require("../../assets/images/shopping-mall.png"),
+                      item: item,
                     })
                   }
                   activeOpacity={0.5}
@@ -355,7 +362,7 @@ export default function Home(props) {
                 </TouchableOpacity>
               );
             })}
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => props.navigation.navigate("Department")}
               activeOpacity={0.5}
               style={[
@@ -394,7 +401,7 @@ export default function Home(props) {
                   {"View All"}
                 </Text>
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </ScrollView>
         </View>
 

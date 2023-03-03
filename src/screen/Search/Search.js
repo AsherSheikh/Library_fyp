@@ -33,6 +33,7 @@ export default function DocumentListing(props) {
       available: true,
       count: 18,
       total: 25,
+      price: 10,
     },
     {
       title:
@@ -43,6 +44,7 @@ export default function DocumentListing(props) {
       available: false,
       count: 4,
       total: 6,
+      price: 10,
     },
     {
       title: "Being Human in the Age of Artificial Intelligence",
@@ -51,6 +53,7 @@ export default function DocumentListing(props) {
       image: require("../../assets/images/cover12.jpg"),
       available: true,
       count: 14,
+      price: 10,
       total: 20,
     },
     {
@@ -61,6 +64,7 @@ export default function DocumentListing(props) {
       available: true,
       count: 13,
       total: 26,
+      price: 10,
     },
     {
       title: "Network Programmability and Automation",
@@ -69,6 +73,7 @@ export default function DocumentListing(props) {
       image: require("../../assets/images/cover421.jpg"),
       available: false,
       count: 11,
+      price: 10,
       total: 14,
     },
     {
@@ -78,6 +83,7 @@ export default function DocumentListing(props) {
       Author: "James Kurose",
       available: true,
       count: 10,
+      price: 10,
       total: 19,
     },
     {
@@ -88,6 +94,7 @@ export default function DocumentListing(props) {
       available: true,
       count: 4,
       total: 6,
+      price: 10,
     },
   ];
 

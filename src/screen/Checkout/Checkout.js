@@ -17,6 +17,8 @@ import styles from "../styles";
 import { AntDesign } from "@expo/vector-icons";
 import Layout from "../../Component/Layout/Layout";
 import ThemeButton from "../../Component/ThemeButton/ThemeButton";
+import TextField from "../../Component/FloatTextField/FloatTextField";
+import FlashMessage from "../../Component/FlashMessage/FlashMessage";
 
 const { width, height } = Dimensions.get("window");
 
@@ -24,12 +26,28 @@ export default function DocumentListing(props) {
   const themeContext = useContext(ThemeContext);
   const currentTheme = theme[themeContext.ThemeValue];
   let { cartitem, total } = props.route?.params;
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+
   let cal = [
-    { title: "Subtotal:", amount: `$${total}` },
-    { title: "Discount:", amount: "$0.00" },
+    { title: "Subtotal:", amount: `Rs ${total}` },
+    { title: "Discount:", amount: "Rs 0.00" },
     { title: "Delivery Method:", amount: "Cash on Delivery" },
   ];
   const [orderPopup, setOrderPopup] = useState(false);
+
+  function Order() {
+    if (email === "") {
+      FlashMessage({ msg: "Enter Contact Number", type: "warning" });
+      return;
+    }
+    if (address === "") {
+      FlashMessage({ msg: "Enter Delivery Address", type: "warning" });
+      return;
+    }
+    setOrderPopup(true);
+  }
 
   const OrderPopup = () => {
     return (
@@ -186,7 +204,7 @@ export default function DocumentListing(props) {
                         fontWeight: "bold",
                       }}
                     >
-                      ${item.price}
+                      {"Rs " + item.price}
                     </Text>
                     <Text
                       style={{
@@ -236,11 +254,47 @@ export default function DocumentListing(props) {
             );
           })}
         </View>
-        <View style={[styles().mv15]}>
-          <ThemeButton
-            Title={"Order Now"}
-            onPress={() => setOrderPopup(true)}
+        <Text
+          style={{
+            marginBottom: 10,
+            marginTop: 10,
+            fontWeight: "bold",
+            color: "black",
+            fontSize: 16,
+          }}
+        >
+          Delivery Details:
+        </Text>
+        <View style={styles().mb20}>
+          <TextField
+            keyboardType="numeric"
+            value={email}
+            label="Contact Number"
+            errorText={emailError}
+            autoCapitalize="none"
+            // editable={false}
+            style
+            onChangeText={(text) => {
+              setEmailError(false);
+              setEmail(text);
+            }}
           />
+        </View>
+        <View style={styles().mb20}>
+          <TextField
+            keyboardType="default"
+            value={address}
+            label="Delivery Address"
+            autoCapitalize="none"
+            style
+            stylesInput={styles().h100px}
+            onChangeText={(text) => {
+              setAddress(text);
+            }}
+          />
+        </View>
+        <View style={[styles().mv15]}>
+          <ThemeButton Title={"Order Now"} onPress={() => Order()} />
         </View>
       </View>
       <OrderPopup />

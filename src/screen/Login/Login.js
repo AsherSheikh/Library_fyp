@@ -13,7 +13,7 @@ import ThemeContext from "../../context/ThemeContext/ThemeContext";
 import { theme } from "../../context/ThemeContext/ThemeColor";
 import styles from "../styles";
 import { CommonActions } from "@react-navigation/native";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Fontisto } from "@expo/vector-icons";
 import ThemeButton from "../../Component/ThemeButton/ThemeButton";
 import AuthLayout from "../../Component/AuthLayout/AuthLayout";
 import TextField from "../../Component/FloatTextField/FloatTextField";
@@ -114,6 +114,7 @@ export default function Login(props) {
             >
               {`Welcome To Online Library`}
             </Text>
+            
             <Text
               style={[
                 styles().fs20,
@@ -126,13 +127,22 @@ export default function Login(props) {
             </Text>
           </View>
 
-          <View style={[styles().flex, styles().justifyEnd, styles().mb35]}>
-            <Image
-              source={require("../../assets/images/books.png")}
-              resizeMode="contain"
-              style={{ height: 150, width: "70%", alignSelf: "center" }}
+          {role?.isStudent ? (
+            <View style={[styles().flex, styles().justifyEnd, styles().mb35]}>
+              <Image
+                source={require("../../assets/images/books.png")}
+                resizeMode="contain"
+                style={{ height: 150, width: "70%", alignSelf: "center" }}
+              />
+            </View>
+          ) : (
+            <Fontisto
+              name="shopping-store"
+              size={130}
+              color={currentTheme.themeBackground}
+              style={{ alignSelf: "center", marginBottom: 35 }}
             />
-          </View>
+          )}
 
           <View style={styles().mb20}>
             <TextField

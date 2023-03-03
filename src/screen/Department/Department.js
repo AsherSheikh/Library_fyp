@@ -22,14 +22,32 @@ export default function DocumentListing(props) {
   const [popFolder, setPopFolder] = useState(false);
   const [selectedFolderIndex, setSelectedFolderIndex] = useState("");
   let folders = [
-    { name: "Departments of Administration." },
-    { name: "Departments of Arts and Humanities." },
-    { name: "Departments of Business, Economics and Administrative Sciences." },
-    { name: "Departments of Commerce." },
-    { name: "Departments of Computing & Information Technology." },
-    { name: "Departments of Law." },
-    { name: "Departments of Computer Science." },
-    { name: "Departments of  Artificial Intelligence" },
+    {
+      name: "Departments of Computer Science.",
+      courses: [
+        { name: "Bachelor's Degree in Computer Science (CS)" },
+        { name: "Bachelor's Degree in Software Engineering (SE)" },
+        { name: "Bachelor's Degree in Artifical Intelligence (AI)" },
+      ],
+    },
+    {
+      name: "Departments of Mathematics.",
+      courses: [{ name: "Bachelor's Degree in Mathematics" }],
+    },
+    {
+      name: "Departments of Management.",
+      courses: [
+        { name: "Bachelor's Degree in Accountng and Finance" },
+        { name: "Bachelor's Degree in Bussiness Administration" },
+      ],
+    },
+    {
+      name: "Departments of Electrical Engineering.",
+      courses: [
+        { name: "Bachelor's Degree in Computer Engineering" },
+        { name: "Bachelor's Degree in Electrical Engineering" },
+      ],
+    },
   ];
 
   return (
@@ -57,6 +75,7 @@ export default function DocumentListing(props) {
                     props.navigation.navigate("UnderDepartment", {
                       type: item.name,
                       typeImage: require("../../assets/images/shopping-mall.png"),
+                      item: item,
                     })
                   // props.navigation.navigate("Courses", {
                   //   type: item.name,

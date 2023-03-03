@@ -158,6 +158,20 @@ export default function DocumentListing(props) {
             fontSize: 16,
           }}
         >
+          Price
+        </Text>
+        <Text style={{ fontSize: 14, color: "black" }}>
+          {"Rs " + item?.price?.toFixed(2)}
+        </Text>
+        <Text
+          style={{
+            marginTop: 15,
+            marginBottom: 10,
+            fontWeight: "bold",
+            color: "black",
+            fontSize: 16,
+          }}
+        >
           Author
         </Text>
         <Text style={{ fontSize: 14, color: "black" }}>{item?.Author}</Text>
